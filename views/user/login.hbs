@@ -1,0 +1,40 @@
+<section>
+    <div class="container-fluid">
+           <div class="row ">
+        <div class="col-12 col-md-12 col-xl-12"style="margin-top:4rem" >
+            <h2  class="fw-bold d-flex justify-content-center" >Login</h2>
+            <form action="/login" method="POST">
+                  
+
+                      {{#if loginErr}}
+                
+                   <div class="col-12 col-md-12 col-xl-12 d-flex justify-content-center">
+                       <p class="error text-danger ">{{loginErr}}</p>
+                  </div>
+                   {{/if}}
+               
+
+               <div class="col-12 col-md-12 col-xl-12 ">  
+                <div class="mb-3 mt-4 col-12 col-md-12 col-xl-12 d-flex justify-content-center   "  >
+                    
+                    <label for="exampleInputEmail1" class="form-label">Email address&nbsp; </label>
+                    <input type="email" name="Email" class="form-control  " id="exampleInputEmail1" aria-describedby="emailHelp" style="width:20em">
+                    
+                </div>
+                <div class="mb-3 col-12 col-md-12 col-xl-12  d-flex justify-content-center" >
+                    <label for="exampleInputPassword1"  class="form-label" >Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="password" name="Password" class="form-control  d-flex justify-content-center" id="exampleInputPassword1"style="width:20em;">
+                </div>
+                <div class="mb-3 form-check col-12 col-md-12 col-xl-12  " style="margin-left:40%" >
+                    <a href="/signup" class="nav-link ">Create a new acount?</a>
+                </div>
+                <div class="col-12 col-md-12 col-xl-12 " >
+                <button type="submit" class="btn btn-primary " style=" height: 2em; width: 5em;margin-top: -5rem;margin-left: 59%;padding-bottom: 2em;">Submit</button>
+            </div>
+          </div>
+          </div
+            </form>
+        
+    </div>
+    </div>
+</section>
