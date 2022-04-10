@@ -2,7 +2,7 @@ const mongoClint=require('mongodb').MongoClient
 const state={  db:null}
 module.exports.connect=function(done){
     const url='mongodb://localhost:27017'
-    const dbname='shoping'
+    const dbname='shoping2'
     mongoClint.connect(url,function(err,data){
         if(err)
         return done(err)

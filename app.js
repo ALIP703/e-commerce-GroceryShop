@@ -1,11 +1,14 @@
 var createError = require('http-errors');
 var express = require('express');
+var nodemailer = require("nodemailer");
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
+var shopRouter = require('./routes/shop');
+var producerRouter = require('./routes/producer');
 var hbs=require('express-handlebars') //we install this module by  using npm install express-handlebars for partialis
 var fileUpdload= require("express-fileupload")//when has a file upload then we need a module that install by using "npm i express-fileupload"// and the create a object
 var db=require('./config/connection')//take db file for call connect function when server start in app.js 
@@ -41,7 +44,8 @@ db.connect(function(err){
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
-
+app.use('/shop', shopRouter);
+app.use('/producer',producerRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
