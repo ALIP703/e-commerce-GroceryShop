@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 var nodeMailer = require('./node_mail_helper')
 var objectId = require('mongodb').ObjectID
 const Razorpay = require('razorpay')
+const { response } = require('../app')
 var instance = new Razorpay({
     key_id: 'rzp_test_L7YsjcI9cNlZ3g',
     key_secret: '2C8pYdjzh0Ba6WPzsLskm9MG',
@@ -28,7 +29,6 @@ module.exports = {
             let response = {}
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({ Email: userData.Email })
             //  console.log(userData)
-
             // console.log(userData.Password)
             // console.log(user.Password)
             if (user) {
@@ -119,10 +119,7 @@ module.exports = {
                         foreignField: '_id',
                         as: 'product'
                     }
-                }
-
-
-                ,
+                },
                 {
                     $project: {
                         item: 1, quantity: 1, product: { $arrayElemAt: ['$product', 0] }
@@ -233,6 +230,52 @@ module.exports = {
         })
 
     },
+    getTotaldiscount: (userId) => {
+        return new Promise(async (resolve, reject) => {
+
+            let discount = await db.get().collection(collection.CART_COLLECTION).aggregate([
+                {
+                    $match: { user: objectId(userId) }
+                },
+                {
+                    $unwind: '$products'
+                },
+                {
+                    $project: {
+                        item: '$products.item',
+                        quantity: '$products.quantity'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collection.PRODUCT_COLLECTION,
+                        localField: 'item',
+                        foreignField: '_id',
+                        as: 'product'
+                    }
+                }
+                ,
+
+                {
+                    $project: {
+                        item: 1, quantity: 1, product: { $arrayElemAt: ['$product', 0] }
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        discount: {
+                            $sum: {
+                                $multiply: ['$quantity', '$product.discount']
+                            }
+                        }
+                    }
+                }
+            ]).toArray()
+            resolve(discount[0].discount)
+        })
+
+    },
     getCartProductList: (userId) => {
         return new Promise(async (resolve, reject) => {
             let cart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: objectId(userId) })
@@ -266,7 +309,6 @@ module.exports = {
     },
     getUserOrders: (userId) => {
         return new Promise(async (resolve, reject) => {
-            console.log(userId);
             let orders = await db.get().collection(collection.ORDER_COLLECTION).
                 find({ user: objectId(userId) }).toArray()
             resolve(orders)
@@ -381,11 +423,11 @@ module.exports = {
             db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userId) },
                 {
                     $set: {
-                        Name:details.Name,
-                        Email:details.Email,
-                        Address:details.Address,
-                        pincode:details.pincode,
-                        phoneNumber:details.phoneNumber
+                        userName: details.userName,
+                        Email: details.Email,
+                        Address: details.Address,
+                        pincode: details.pincode,
+                        phoneNumber: details.phoneNumber
                     }
                 }).then((response) => {
                     console.log(response);
@@ -394,9 +436,16 @@ module.exports = {
 
         })
     },
-    getUserProfile:(userId)=>{
+    getUserProfile: (userId) => {
         return new Promise(async (resolve, reject) => {
-            db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(userId)}).then((data)=>{
+            db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) }).then((data) => {
+                resolve(data)
+            })
+        })
+    },
+    getproducerProfile: (producerId) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.PRODUCER_COLLECTION).findOne({ _id: objectId(producerId) }).then((data) => {
                 resolve(data)
             })
         })
@@ -405,14 +454,14 @@ module.exports = {
         console.log("helo");
         let rand = Math.floor((Math.random() * 100) + 1000);
         console.log(recipient);
-        let data={
-            recipient:recipient,
-            subject:"email verification for gshopp",
-            message:"your one time password is "+rand
+        let data = {
+            recipient: recipient,
+            subject: "email verification for gshopp",
+            message: "your one time password is " + rand
         }
         console.log(data.recipient);
-        return new Promise(async(resolve, reject) => {
-           await nodeMailer(data).then((response) => {
+        return new Promise(async (resolve, reject) => {
+            await nodeMailer(data).then((response) => {
                 console.log("after send mail");
                 console.log(rand);
                 resolve(rand)
@@ -421,17 +470,108 @@ module.exports = {
             })
         })
     },
-    removeEmail:(data)=>{
+    removeEmail: (data) => {
         console.log("ivde");
         console.log(data);
-        let detials={
-            email:data.email,
-            password:data.password
+        let detials = {
+            email: data.email,
+            password: data.password
         }
         console.log(detials);
-        return new Promise(async(resolve, reject) => {
-        await db.get().collection(collection.USER_COLLECTION).removeOne({email:detials.email,password:detials.password})
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.USER_COLLECTION).removeOne({ email: detials.email, password: detials.password })
             resolve()
+        })
+    },
+    Emailverify: (details) => {
+        console.log(details);
+        let Email = details.Email
+        let name = details.userName
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.USER_COLLECTION).findOne({ Email: Email, userName: name }).then((data) => {
+                console.log(data);
+                resolve(data)
+            })
+        })
+    },
+    checkUser: (details) => {
+        let Email = details.Email
+        let userpassword = details.Password
+        return new Promise(async (resolve, reject) => {
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ Email: Email })
+            if (user) {
+                bcrypt.compare(details.Password, user.Password).then((status) => {//bycript compare old and new password are same
+                    //console.log(status)
+                    if (status == true) {
+                        console.log('Login successfull')
+                        resolve({status:true})
+                    }
+                    else {
+                        console.log('loginfailed')
+                        resolve({ status: false })
+                    }
+
+                })
+
+            } else {
+                console.log('login faild by Email')
+                resolve({ status: false })
+            }
+        })
+    },
+    checkAdmin:(details)=>{
+        let Email = details.Email
+        let userpassword = details.Password
+        return new Promise(async (resolve, reject) => {
+            let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ Email: Email })
+            if (admin) {
+                bcrypt.compare(details.Password, admin.Password).then((status) => {//bycript compare old and new password are same
+                    //console.log(status)
+                    if (status == true) {
+                        console.log('Login successfull')
+                        resolve({status:true})
+                    }
+                    else {
+                        console.log('loginfailed')
+                        resolve({ status: false })
+                    }
+
+                })
+
+            } else {
+                console.log('login faild by Email')
+                resolve({ status: false })
+            }
+        })
+    },
+    changePassword: (userDetails, password) => {
+        let userId = userDetails._id
+        console.log(userId);
+
+        return new Promise(async (resolve, reject) => {
+            userDetails.Password = await bcrypt.hash(password, 10)
+            db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userId) },
+                {
+                    $set: {
+                        userName: userDetails.userName,
+                        Email: userDetails.Email,
+                        Address: userDetails.Address,
+                        pincode: userDetails.pincode,
+                        phoneNumber: userDetails.phoneNumber,
+                        Password: userDetails.Password
+                    }
+                }).then((response) => {
+                    console.log(response);
+                    resolve()
+                })
+        })
+    },
+    checkthruser:(email)=>{
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.USER_COLLECTION).findOne({Email:email}).then((response)=>{
+                console.log(response);
+                resolve(response)
+            })
         })
     }
 }

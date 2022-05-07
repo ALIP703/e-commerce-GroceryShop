@@ -1,0 +1,49 @@
+<style>
+    .card-title {
+        font-weight: 300;
+    }
+
+    .btn {
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+    .login-form {
+        width: 400px;
+        margin: 40px;
+    }
+</style>
+
+<div class="global-container">
+    <div class="card login-form shadow mt-1 pt-3">
+        <div class="card-body">
+            <h3 class="card-title text-center">sign in as a seller</h3>
+            <div class="card-text">
+                <!--
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div> -->
+                <form class="" action="/producer/login" method="POST">
+                    <!-- to error: add class "has-danger" -->
+                    <div class="">
+                        <label for="">Email address</label>
+                        <input type="email" name="Email" class="form-control" required>
+                    </div>
+                    <div class="">
+                        <label for="">Password</label>
+                        <a href="/producer/forgotpas" style="float:right;font-size:12px;">Forgot password?</a>
+                        <input type="password" name="Password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    <div class="" >
+                        <a href="/producer/register" class="">Create a new acount?</a>
+                    </div>
+                </form>
+                {{#if loginErr}}
+
+                <div class="col-12 col-md-12 col-xl-12 d-flex justify-content-center ">
+                    <p class="error text-danger ">{{loginErr}}</p>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

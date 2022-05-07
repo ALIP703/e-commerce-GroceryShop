@@ -1,19 +1,142 @@
 <section>
-    <div class="container mt-5 " >
+    <div class="container-fluid mb-5  text-white shadow   rounded  ">
+        <div class="row ">
+            <div class="col-lg-3 d-none d-lg-block ">
+
+                <nav style="width: 100%;" class="collapse show navbar navbar-vertical  navbar-light align-items-start p-0 border border-top-0 border-bottom-0 shadow rounded mt-3"
+                    id="navbar-vertical">
+                    <div class="navbar-nav w-100 overflow-hidden "
+                        style="height: 410px;border:1px solid rgb(238, 235, 235)">
+                        <a href="/grocerry" class="nav-item nav-link shadow-sm rounded">grocerry</a>
+                        <a href="/fruits" class="nav-item nav-link shadow-sm rounded">fruits</a>
+                        {{!-- <div class="nav-item dropdown shadow-sm rounded">
+                            <a href="" class="nav-link nav-item dropdown-toggle active" data-toggle="dropdown">
+                                vegitable</a>
+                            <div class="dropdown-menu position-absolute shadow-lg rounded border-0 rounded-0 w-100 m-0">
+                                --}}
+                                <a href="/cutted-veg" class="nav-item nav-link shadow-sm rounded">cutted vegitable</a>
+                                <a href="/non-cut-veg" class="nav-item nav-link shadow-sm rounded"> vegitable</a>
+                                {{!--
+                            </div>
+                        </div> --}}
+
+                        {{!-- <div class="nav-item dropdown shadow-sm rounded">
+                            <a href="#" class="nav-link shadow-sm rounded " id="dropdownMenuButton"
+                                data-toggle="dropdown">non veg <i class="fa fa-angle-down float-right mt-1"></i></a>
+                            <div class="dropdown-menu position-absolute shadow-lg rounded border-0 rounded-0 w-100 m-0"
+                                aria-labelledby="dropdownMenuButton"> --}}
+                                <a href="/fish" class="nav-item nav-link shadow-sm rounded">fish</a>
+                                <a href="/meet" class="nav-item nav-link shadow-sm rounded">meet</a>
+
+                                {{!--
+                            </div>
+                        </div> --}}
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-9 rounded">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light  py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                                class="text-primary font-weight-bold border px-3 mr-1">G</span>Shop</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between shadow rounded" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="/" class="nav-item nav-link ">Home</a>
+                            <a href="/producer" class="nav-item nav-link">Sell on shop</a>
+                            {{#if user}}
+                            <a href="/orders" class="nav-item nav-link">orders</a>
+                            {{/if}}
+
+                            <a href="https://web.telegram.org/z/" class="nav-item nav-link">Contact</a>
+                        </div>
+                        <div class="navbar-nav ml-auto py-0">
+                            {{#if user}}
+                            <a href="/logout" class="nav-item nav-link">Logout</a>
+                            {{else}}
+                            <a href="/login" class="nav-item nav-link">login</a>
+                            <a href="/signup" class="nav-item nav-link">Register</a>
+                            {{/if}}
+                        </div>
+                    </div>
+                </nav>
+                <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner shadow-lg rounded ">
+                        <div class="carousel-item active" style="height: 410px;">
+                            <img class="img-fluid" src="\images\image6.jpg" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your
+                                        First Order</h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">fruits</h3>
+                                    <a href="/non-cut-veg" class="btn btn-light py-2 px-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item " style="height: 410px;">
+                            <img class="img-fluid" src="\images\image2.jpg" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your
+                                        First Order</h4><br>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price
+                                    </h3>
+                                    <a href="/fruits" class="btn btn-light py-2 px-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{!--
+                    
+                     <a class="carousel-control-prev" href="" data-slide="prev">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-prev-icon mb-n2"></span>
+                        </div>
+                    </a>
+                    <a class="carousel-control-next" href="" data-slide="next">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-next-icon mb-n2"></span>
+                        </div>
+                    </a> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid mt-1 ">
         <div class="row">
             {{#each products}}
-            <div class="col-md-3">
-                <div class="card m-2 p-2" style="width: 18rem;height:20em">
-                    <img src="/product-images/{{this._id}}.jpg" class="card-img-top" alt="... " style="height: 152px;border:1px solid black" >
+
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 container-fluid ">
+                <div class="card m-2 p-2 shadow rounded" style="width: 10em;height:22em">
+                    <a href="/login" style="text-decoration: none;">
+                        <img src="/product-images/{{this._id}}.jpg" class="card-img-top" alt="... "
+                            style="height: 130px;border:1px solid black">
+                    </a>
                     <div class="card-body pb-4">
-                        <h5 class="card-title">{{this.Name}}</h5>
-                        <p class="card-text">{{this.Description}}</p>
-                        <a href="#" class="btn btn-primary">Add to cart</a>
+                        <h6 class="card-title name">{{this.Name}}</h6>
+                        <p class=""><code>{{this.Description}}</code></p>
+                        <p class="">Rs: {{this.Price}}/-</p>
+                        {{!-- <a href="/add-to-cart/{{this._id}}" class="btn btn-primary ">
+
+                        </a> --}}
+                        <button onclick="addToCart('{{this._id}}')" class="btn btn-primary mb-1">
+                                add to cart
+                                
+                        </button>
+                        {{!-- <a href="" class="btn btn-primary">buy</a> --}}
                     </div>
                 </div>
+                </a>
             </div>
             {{/each}}
         </div>
-    </div>    
+    </div>
 </section>
-
+<script>
+    
+</script>

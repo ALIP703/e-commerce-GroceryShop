@@ -1,0 +1,42 @@
+<section>
+    <style>
+        .card-title {
+            font-weight: 300;
+        }
+
+        .btn {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .login-form {
+            width: 400px;
+            margin: 40px;
+        }
+    </style>
+    <div class="global-container">
+        <div class="card login-form shadow mt-5 pt-3">
+            <div class="card-body">
+                <h3 class="card-title text-center">sign in</h3>
+                <div class="card-text">
+                    <form class="" action="/producer/loginVerification" method="POST">
+                        <div class="">
+                            <label for="">please enter otp</label>
+                            <input type="number" name="otp" class="form-control">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                        <a href="/producer/login" style="float:right;font-size:12px;">Editing in email?</a>
+
+                    </form>
+                    {{#if loginErr}}
+
+                    <div class="col-12 col-md-12 col-xl-12 d-flex justify-content-center ">
+                        <p class="error text-danger ">{{loginErr}}</p>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

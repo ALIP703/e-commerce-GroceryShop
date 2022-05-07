@@ -1,0 +1,38 @@
+<section>
+    <div class="container mt-4">
+        <table class="table" id="requirementTable">
+            <thead>
+                <tr>
+                    <th style="border: none;" scope="col">Name</th>
+                    <th style="border: none;" scope="col">Category</th>
+                    <th style="border: none;" scope="col">shop</th>
+                    <th style="border: none;" scope="col">Price</th>
+                    <th style="border: none;" scope="col">stock</th>
+                    <th style="border: none;" scope="col">!</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <td style="border: none;">{{this.Name}}</td>
+                    <td style="border: none;">{{this.Category}}</td>
+                    <td style="border: none;">{{this.block}}</td>
+                    <td style="border: none;">{{this.Price}}</td>
+                    <td style="border: none;">{{this.stock}}</td>
+                    <td style="border: none;">
+                                    <a href="/admin/claim-requirement/{{this._id}}" class="btn btn-danger shadow"
+              onclick="return confirm('Are you want to claim and delete from requirement {{this.Name}}')">claim</a>
+
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+<script>
+    $(function () {
+        $('#requirementTable').DataTable();
+    });
+
+</script>

@@ -1,0 +1,45 @@
+<section>
+    <style>
+        .card-title {
+            font-weight: 300;
+        }
+
+        .btn {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .login-form {
+            width: 400px;
+            margin: 40px;
+        }
+    </style>
+    <div class="global-container">
+        <div class="card login-form shadow mt-5 pt-3">
+            <div class="card-body">
+                <h3 class="card-title text-center">Forgotten account?</h3>
+                <div class="card-text">
+                    <form class="" action="/forgotpas" method="POST">
+                        <div class="">
+                            <label for="">please enter Email</label>
+                            <input type="text" name="Email" class="form-control" required>
+                        </div>
+                        <div class="">
+                            <label for="">please enter userName</label>
+                            <input type="text" name="userName" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">submit</button>
+                        <a href="/login" style="float:right;font-size:12px;">Sign in with password!</a>
+
+                    </form>
+                    {{#if loginErr}}
+
+                    <div class="col-12 col-md-12 col-xl-12 d-flex justify-content-center ">
+                        <p class="error text-danger ">{{loginErr}}</p>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

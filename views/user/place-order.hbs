@@ -1,0 +1,139 @@
+<section>
+    <div class=" container-fluid">
+        <h1 class="ml-5">Enter Delivery Details</h1>
+        <form action="" id="checkout-form">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class=" container-fluid">
+                        <div class="mb-3 mt-4 ">
+                            <input type="text" class="form-control" name="name" placeholder="enter reciever name"
+                                style="width:30em;height: 4em;" required>
+                        </div>
+
+                        <div class="mb-3 mt-4 ">
+                            <input type="text" class="form-control" name="Address" placeholder="enter your address"
+                                style="width:30em;height: 4em;" required>
+                        </div>
+                        <div class="mb-3 mt-4">
+                            <input type="number" class="form-control" name="pincode" placeholder="Pincode"
+                                style="width:14em;" required>
+                        </div>
+
+                        <div class="mb-3 mt-4">
+                            <p>block:-</p>
+                            {{#each block}}
+                            <label for="" class="radio-inline">
+                                <input type="radio" name="block" value="{{this.center}}" checked>{{this.center}}
+                            </label><br>
+                                {{/each}}
+
+                        </div>
+
+                        <div class="mb-3 mt-4 ">
+                            <input type="number" class="form-control" name="phoneNumber" placeholder="Mobile number"
+                                style="width:30em;" required>
+                        </div>
+
+                        <input type="text" name="userId" value="{{user._id}}" hidden>
+                    </div>
+                </div>
+                <div class="col-md-4 container">
+
+                    <div class=" container checkout shadow mt-6" style="border-style: ridge;">
+                        <h5 class="mt-2">Toatal amount:Rs{{total}}/-</h5>
+
+                        <hr>
+                        <div class="payment">
+                            <p>Payment method</p>
+                            <label for="" class="radio-inline">
+                                <input type="radio" name="paymentMethod" value="COD" checked>COD
+                            </label><br>
+                            <label for="" class="radio-inline mt-2">
+                                <input type="radio" name="paymentMethod" value="online">online payment
+                            </label>
+                            <br>
+                            <button class="btn btn-primary ml-5" type="submit">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+
+    $("#checkout-form").submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url: '/place-order',
+            method: 'post',
+            data: $("#checkout-form").serialize(),
+            success: (response) => {
+                if (response) {
+                    console.log(response.id)
+                    if (response.cod_success) {
+                        alert("order successfully")
+                        location.href = '/orders'
+                    }
+                    else if (response.outofstck) {
+                        alert("out of stock")
+                        location.href = '/'
+
+                    }
+                    else {
+                        razorpayPayment(response)
+                        alert("")
+
+                    }
+                }
+
+            }
+        })
+    })
+    function razorpayPayment(order) {
+        var options = {
+            "key": "rzp_test_L7YsjcI9cNlZ3g",
+            "amount": order.amount,
+            "currency": "INR",
+            "name": "Gshop",
+            "description": "Test transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id,
+            "handler": function (response) {
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "ali",
+                "email": "muhammedalip703@gmail.com",
+                "contact": "7510642603"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#F37254"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verify-payment',
+            data: {
+                payment,
+                order
+            },
+            method: "post",
+            success: (response) => {
+                if (response.status) {
+                    alert("order successfully")
+                    location.href = '/orders'
+                } else {
+                    alert("payment filed")
+                }
+            }
+        })
+    }
+</script>

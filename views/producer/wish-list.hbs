@@ -1,0 +1,48 @@
+<section class="container">
+    <div class="row">
+        <a href="/producer/claims" class="btn btn-primary ml-auto mt-1" style="width:150px; margin-left:auto; ">
+            view orders</a>
+    </div>
+    <div class="container">
+        <div class="row">
+            {{#each products}}
+            <div class="col-md-4  container-fluid">
+                <div class="card" style="width: 18rem;">
+                    <center>
+                        <img class="card-img-top" src="/product-images/{{this.wishList._id}}.jpg"
+                            style="width: 180px;height: 180px;" alt="Card image cap">
+                    </center>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.wishList.Name}}</h5>
+                        <p class="card-text">{{this.wishList.Description}}<br>
+                            Rs {{this.wishList.Price}}/-</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><code>product available:{{this.wishList.stock}}.Kg</code></li>
+                        <li class="list-group-item">Quantity</li>
+                        <li class="list-group-item">
+                            <button class="btn btn-info mr-3"
+                                onclick="changeQuantity2('{{this._id}}','{{this.wishList._id}}',-1)">-</button>
+                            <span id="{{this.wishList._id}}">{{this.quantity}}</span>
+                            <button class="btn btn-info ml-3"
+                                onclick="changeQuantity2('{{this._id}}','{{this.wishList._id}}',1)">+</button>
+                        </li>
+                    </ul>
+                    <div class="card-body">
+                        <a class="btn btn-danger" onclick="removeProduct2('{{this._id}}','{{this.wishList._id}}',1)">
+                            Cancel product
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <hr>
+        <div class="float-right pr-5">
+            <h4 class="float-left mr-5  ">TOTAL :Rs{{total}}./-</h3>
+                <a href="/producer/place-order" class="btn btn-success  mt-3" style="width: 100%;">place order</a>
+        </div>
+    </div>
+
+</section>

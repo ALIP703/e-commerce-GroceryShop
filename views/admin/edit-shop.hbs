@@ -1,0 +1,22 @@
+<section class="global-container">
+    <div class="" style="width: 400;">
+                        <center><h2 class="text-cneter">Edit shop details</h2></center>
+
+        <div class=" ">
+            
+                <form action="/admin/edit-shop/{{details._id}}" method="POST" enctype="multipart/form-data">
+                   <label for="">Name</label>
+                   <input type="text" name="shopName" class="form-control" style="width:25em;" value="{{details.shopName}}">
+                   <label for="">Price</label>
+                   <input type="text" name="address" class="form-control" style="width:25em;" value="{{details.address}}">
+                   <label for="">Description</label>
+                   <input type="text" name="center" class="form-control" style="width:25em;" value="{{details.center}}">
+                   <label for="">Description</label>
+                   <input type="text" name="Email" class="form-control" style="width:25em;" value="{{details.Email}}">
+                   <button type="submit" class="btn btn-success mt-4">Submit</button>
+                   <a href="/admin" class="btn btn-danger mt-4 ">Home</a>
+                </form>
+            
+        </div>
+    </div>
+</section>

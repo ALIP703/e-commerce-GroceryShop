@@ -1,0 +1,83 @@
+<section>
+    <div class=" container-fluid">
+        <h1 class="ml-5">Enter your Details</h1>
+        <form action="" id="checkout-form2">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class=" container-fluid">
+                        <div class="mb-3 mt-4 ">
+                            <input type="text" class="form-control" name="name" placeholder="enter reciever name"
+                                style="width:30em;height: 4em;">
+                        </div>
+                        <div class="mb-3 mt-4 ">
+                            <input type="text" class="form-control" name="Address" placeholder="enter your address"
+                                style="width:30em;height: 4em;">
+                        </div>
+                        <div class="mb-3 mt-4">
+                            <input type="number" class="form-control" name="pincode" placeholder="Pincode"
+                                style="width:14em;">
+                        </div>
+                        <div class="mb-3 mt-4">
+                            <p>block:-</p>
+                            {{#each block}}
+                            <label for="" class="radio-inline">
+                                <input type="radio" name="block" value="{{this.center}}" checked>{{this.center}}
+                            </label><br>
+                                {{/each}}
+
+                        </div>
+                        <input type="text" name="producerId" value="{{producer._id}}" hidden>
+                    </div>
+                </div>
+                <div class="col-md-4 container">
+                    <div class="mb-3 mt-4 ">
+                        <input type="number" class="form-control" name="phoneNumber" placeholder="Mobile number"
+                            style="width:30em;">
+                    </div>
+                    <div class=" container checkout shadow mt-6" style="border-style: ridge;">
+                        <h5 class="mt-2">Toatal amount:Rs{{total}}/-</h5>
+                        <hr>
+
+                        <div class="payment">
+                            <p>Payment method</p>
+                            <label for="" class="radio-inline">
+                                <input type="radio" name="paymentMethod" value="COD" checked>COD
+                            </label><br>
+
+                            <br>
+                            <button class="btn btn-primary ml-5 mb-5" type="submit">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+
+    $("#checkout-form2").submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url: '/producer/place-order',
+            method: 'post',
+            data: $("#checkout-form2").serialize(),
+            success: (response) => {
+                if (response) {
+                    if (response.cod_success) {
+                        alert("claim successfully")
+                        location.href = '/producer/claims'
+                    }
+                    else if (response.outofstck) {
+                        alert("stock over flow")
+                        location.href = '/'
+
+                    }
+
+                }
+
+            }
+        })
+    })
+
+</script>

@@ -1,0 +1,53 @@
+<section>
+    <div class="container mt-4">
+        {{!-- <div class="d-flex ">
+            <div class="btn-group">
+                <button type="button" class="btn btn-success rounded shadow-lg" id="timezoneDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    filter
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="timezoneDropdown">
+                    <li><a class="dropdown-item">pending</a></li>
+                    <li><a class="dropdown-item">placed</a></li>
+                    <li><a class="dropdown-item">shipped</a></li>
+                    <li><a class="dropdown-item">out for delivery </a></li>
+                    <li><a class="dropdown-item">delivered</a></li>
+                </ul>
+            </div>
+        </div> --}}
+        <table class="table" id="orderTable">
+            <thead>
+                <tr>
+                    <th scope="col" style="border: none;">Date</th>
+                    <th scope="col" style="border: none;">Name</th>
+                    <th scope="col" style="border: none;">Address</th>
+                    <th scope="col" style="border: none;">center</th>
+                    <th scope="col" style="border: none;"> price</th>
+                    <th scope="col" style="border: none;">peyment</th>
+                    <th scope-"col" style="border: none;">status</th>
+                    <th scope-"col" style="border: none;">!</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orders}}
+                <tr>
+                    <td scope="row" style="width: 100px;">{{this.date}}</th>
+                    <td>{{this.deliveryDetails.name}}</td>
+                    <td>{{this.deliveryDetails.Address}} <br>
+                        pin : {{this.deliveryDetails.pincode}} <br>
+                        phone : {{this.deliveryDetails.phoneNumber}}</td>
+                    <td>{{this.block}}</td>
+                    <td>Rs.{{this.totalPrice}}/-</td>
+                    <td>{{this.deliveryDetails.paymentMethod}}</td>
+                    <td>{{this.status}}</td>
+                    <td><a href="/admin/view-order-products/{{this._id}}" class="btn btn-primary">view product</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+<script>
+
+
+</script>

@@ -37,15 +37,18 @@ module.exports = {
         })
     },
     updateProduct: (proId, ProductDetails) => {
+        console.log(ProductDetails);
+        ProductDetails.Price = parseInt(ProductDetails.Price)
+        ProductDetails.discount = parseInt(ProductDetails.discount)
         return new Promise((resolve, reject) => {
             db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: objectId(proId) }, {
                 $set: {
                     Name: ProductDetails.Name,
                     Category: ProductDetails.Category,
                     Price: ProductDetails.Price,
-                    stock:ProductDetails.stock,
-                    Description: ProductDetails.Description
-
+                    stock: ProductDetails.stock,
+                    Description: ProductDetails.Description,
+                    discount: ProductDetails.discount
                 }
             }).then((response) => {
                 resolve()
@@ -174,17 +177,17 @@ module.exports = {
                 var total = stock - quantity;
                 let prodId = orderProducts[i].item;
                 console.log(total);
-                if(total>=0){
-                let products = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: objectId(prodId) },
-                    {
-                        $set: {
-                            stock:total
+                if (total >= 0) {
+                    let products = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: objectId(prodId) },
+                        {
+                            $set: {
+                                stock: total
+                            }
                         }
-                    }
-                )
-                i = i + 1
+                    )
+                    i = i + 1
                 }
-                else{                    
+                else {
                     break;
                 }
             }
@@ -202,7 +205,7 @@ module.exports = {
             })
         })
     },
-    doLogin:(adminData)=>{
+    doLogin: (adminData) => {
         return new Promise(async (resolve, reject) => {
             let loginStatus = false;
             let response = {}
@@ -228,6 +231,100 @@ module.exports = {
                 console.log('login faild by Email')
                 resolve({ status: false })
             }
+        })
+    },
+    getdiscountproduct: (products, prodlenth) => {
+        return new Promise(async (resolve, reject) => {
+            let discount = 0
+            let price=0
+            for (let i = 0; i < prodlenth; i++) {
+                console.log(products[i]);
+                if (products[i].product.discount) {
+                    discount = discount + (products[i].product.discount * products[i].quantity)
+                }
+            }
+            resolve(discount)
+        })
+    },
+    getallshopdetails:()=>{
+        return new Promise(async (resolve, reject) => {
+        let shops=await db.get().collection(collection.SHOP_COLLECTION).find().toArray()
+        resolve(shops)
+        })
+    },
+    getAllRequirements:()=>{
+        return new Promise(async (resolve, reject) => {
+            let products=await db.get().collection(collection.REQUIREMENT_collection).find().toArray()
+        resolve(products)
+        })
+    },
+    deleterequirement:(prodId)=>{
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.REQUIREMENT_collection).removeOne({ _id: objectId(prodId) }).then((response) => {
+                // console.log(response)
+                resolve(response)
+            })
+        })
+    },
+    getRequireDetails:(prodId)=>{
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.REQUIREMENT_collection).findOne({ _id: objectId(prodId) }).then((response) => {
+                 console.log(response)
+                resolve(response)
+            })
+        })
+    },
+    ClaimProducts:(ProductDetails)=>{
+        let data={
+            Name:ProductDetails.Name,
+            Category:ProductDetails.Category,
+            Price:ProductDetails.Price,
+            stock:ProductDetails.stock,
+            Description:ProductDetails.Description
+        }
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.PRODUCT_COLLECTION).insertOne(ProductDetails).then((response)=>{
+                console.log(response);
+                resolve(response)
+            })
+        })
+    },
+    checkmndydlvry:()=>{
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.ORDER_COLLECTION).findOne({block:"mananthavady"},{status:"delivered"}).then((response)=>{
+                console.log("check");
+                console.log(response);
+                console.log("check");
+
+                resolve(response)
+            })
+        })
+    },
+    checkklpdlvry:()=>{
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.ORDER_COLLECTION).findOne({block:"kalpetta"},{status:"delivered"}).then((response)=>{
+                console.log("check");
+                console.log(response);
+                console.log("null");
+                if(response!=null){
+                    resolve()
+                }
+                else{
+                    resolve(response)
+
+                }
+            })
+        })
+    },
+    checkbthrdlvry:()=>{
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.ORDER_COLLECTION).findOne({block:"bathery"},{status:"delivered"}).then((response)=>{
+                console.log("check");
+                console.log(response);
+                console.log("check");
+
+                resolve(response)
+            })
         })
     }
 }

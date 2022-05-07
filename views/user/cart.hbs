@@ -1,1 +1,53 @@
-<h1>Cart is empty</h1>
+<section class="container">
+    <div class="row">
+        <a href="/orders" class="btn btn-primary ml-auto mt-1" style="width:150px; margin-left:auto; ">
+            view orders</a>
+    </div>
+    <div class="container">
+        <div class="row">
+            {{#each products}}
+            <div class="col-md-4  container-fluid">
+                <div class="card" style="width: 18rem;">
+                    <center>
+                        <img class="card-img-top" src="/product-images/{{this.product._id}}.jpg"
+                            style="width: 180px;height: 180px;" alt="Card image cap">
+                    </center>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.product.Name}}</h5>
+                        <p class="card-text">{{this.product.Description}}<br>
+                            Rs {{this.product.Price}}/-</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><code>product available:{{this.product.stock}}.Kg</code></li>
+                        <li class="list-group-item">Quantity</li>
+                        <li class="list-group-item">
+                            <button class="btn btn-info mr-3"
+                                onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button>
+                            <span id="{{this.product._id}}">{{this.quantity}}</span>
+                            <button class="btn btn-info ml-3"
+                                onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button>
+                        </li>
+                    </ul>
+                    <div class="card-body">
+                        <a class="btn btn-danger" onclick="removeProduct('{{this._id}}','{{this.product._id}}',1)">
+                            Cancel product
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <hr>
+        <div class="float-right pr-5">
+            <h6 class="float-left mr-5  ">Amount :Rs{{total}}./-</h6><br>
+            <h6 class="float-left mr-5  "><code>Discount for new commer:Rs{{discountf}}./-</code> </h6><br>
+            <h6 class="float-left mr-5  "><code>Discount :Rs{{discountp}}./-</code> </h6><br>
+            <h6 class="float-left mr-5  "><code>Delivery charge :Rs{{delivery}}./-</code> </h6><br>
+            <hr>
+            <h4 class="float-left mr-5  ">total :Rs{{totall}}./-</h4>
+            <a href="/place-order" class="btn btn-success  mt-3" style="width: 100%;">place order</a>
+        </div>
+    </div>
+
+</section>

@@ -1,0 +1,50 @@
+<section>
+    <style>
+        .card-title {
+            font-weight: 300;
+        }
+
+        .btn {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .login-form {
+            width: 400px;
+            margin: 40px;
+        }
+    </style>
+    <div class="global-container">
+        <div class="card login-form shadow mt-5 pt-3">
+            <div class="card-body">
+                <h3 class="card-title text-center">Update profile</h3>
+                <div class="card-text">
+                    <form class="" action="/edit-profile" method="POST">
+                        <div class="mb-3 mt-4">
+                            <input type="text" name="userName" class="form-control" placeholder="Name:"
+                                value="{{data.Name}}" required>
+                        </div>
+                        <div class="mb-3 mt-4">
+                            <input type="email" name="Email" class="form-control" placeholder="Email:"
+                                value="{{data.Email}}" required>
+                        </div>
+                        <div class="mb-3 mt-4">
+                            <input type="text" name="Address" class="form-control" placeholder="address:"
+                                value="{{data.Address}}" required>
+                        </div>
+                        <div class="mb-3 mt-4">
+                            <input type="text" name="pincode" class="form-control" placeholder="pincode:"
+                                value="{{data.pincode}}" required>
+                        </div>
+                        <div class="mb-3 mt-4">
+                            <input type="text" name="phoneNumber" class="form-control" placeholder="phoneNumber:"
+                                value="{{data.phoneNumber}}" required>
+                        </div>
+                        <center> <button type="submit" class="btn btn-primary  mb-3 mt-4">Update</button>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

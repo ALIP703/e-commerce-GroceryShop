@@ -3,28 +3,46 @@
         <div class="row">
             <div class="col-md-6">
                 <h2 class="text-cneter">Add Product</h2>
-                <form action="/admin/add-product" method="POST" enctype="multipart/form-data" ><!--enctype is used to when want send file -->
-                   <label for="">Name</label>
-                   <input type="text" name="Name" class="form-control">
-                   
-                   
-                   <label for="">Category</label>
-                   <input type="text" name="Category" class="form-control">
+                <form action="/admin/add-product" method="POST" enctype="multipart/form-data">
+                    <!--enctype is used to when want send file -->
+                    <label for="">Name</label>
+                    <input type="text" name="Name" class="form-control" required>
 
-                   
-                   <label for="">Price</label>
-                   <input type="text" name="Price" class="form-control">
 
-                   
-                   <label for="">Description</label>
-                   <input type="text" name="Description" class="form-control">
+                    <label for="">Category</label>
+                    <select id="" name="Category" class="form-control" required>
+                        <option value="grocerry">grocerry</option>
+                        <option value=" vegitable"> vegitable</option>
+                        <option value="fish">fish</option>
+                        <option value="fruits">fruits</option>
+                        <option value="meet">meet</option>
+                        <option value="cutted vegitable">cutted vegitable</option>
+                        <option value="non cutted vegitable">non cutted vegitable</option>
+                    </select>
+                    <label for="">shop center</label>
+                    <select id="" name="block" class="form-control" required>
+                        {{#each shop}}
+                        <option value="{{this.center}}">{{this.center}}</option>
+                        {{/each}}
+                    </select>
+                    <label for="">Price</label>
+                    <input type="number" name="Price" class="form-control" required>
 
-                   
-                   <label for="">Image</label>
-                   <input type="file" name="Image" class="form-control">
+                    <label for="">stock</label>
+                    <input type="number" name="stock" class="form-control" required>
 
-                  <button type="submit" class="btn btn-success mt-4">Submit</button>
-                </form>         
+                    {{!-- <label for="">shop</label> --}}
+
+                    <label for="">Description</label>
+                    <input type="text" name="Description" class="form-control" required>
+
+
+                    <label for="">Image</label>
+                    <input type="file" name="Image" class="form-control" required>
+
+                    <button type="submit" class="btn btn-success mt-4">Submit</button>
+                    <a href="/admin" class="btn btn-danger mt-4 ">Home</a>
+                </form>
             </div>
         </div>
     </div>

@@ -1,0 +1,33 @@
+<section>
+    <style>
+        .card-title {
+            font-weight: 300;
+        }
+
+        .btn {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .login-form {
+            width: 400px;
+            margin: 40px;
+        }
+    </style>
+    <div class="global-container">
+        <div class="card login-form shadow mt-5 pt-3">
+            <div class="card-body">
+                <h3 class="card-title text-center">Profile</h3>
+                <div class="card-text mt-3">
+                    <h6>NAME: <code class="text-center">{{data.Name}}</code></h6><br>
+                    <h6>EMAIL: <code class="text-center">{{data.Email}}</code> </h6><br>
+                    <h6>ADDRESS: <code class="text-center">{{data.Address}}</code> </h6><br>
+                    <h6>PIN <code class="text-center">{{data.pincode}}</code> </h6><br>
+                    <h6>PHONE: <code class="text-center">{{data.phoneNumber}}</code> </h6><br>
+                    <a href="/" class="btn btn-primary">home</a>
+                    <a href="/edit-profile" class="btn btn-primary">edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

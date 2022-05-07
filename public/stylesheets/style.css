@@ -1,0 +1,36 @@
+.name{
+    color: black;
+}
+.global-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.profile-container{
+    height: 100%;
+    display: grid;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+html,
+body {
+    height: 100%;
+}
+.avatar-pic {
+    width: 150px;
+    }
+    .my-custom-scrollbar {
+        position: relative;
+        height: 300px;
+        overflow: auto;
+        }
+        .table-wrapper-scroll-y {
+        display: block;
+        }
+/* table.dataTable th,
+table.dataTable td {
+          white-space: nowrap;
+   } */

@@ -1,0 +1,30 @@
+<section>
+
+  <div class="container mt-4">
+    <div class="row ">
+      <a href="/shop/request-product" class="btn btn-success ml-auto shadow rounded mb-3" style="width:200px; margin-left:auto; ">request</a>
+    </div>
+    <table class="table" id="myTable1">
+      <thead >
+        <tr>
+          <th scope="col" style="border: none;">Title</th>
+          <th scope="col" style="border: none;">Catagory</th>
+          <th scope="col" style="border: none;">Description</th>
+          <th scope="col" style="border: none;">Price</th>
+          <th scope-"col" style="border: none;">Image</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+        <tr >
+          <td style="border: none;">{{this.Name}}</td>
+          <td style="border: none;">{{this.Category}}</td>
+          <td style="border: none;">{{this.Description}}</td>
+          <td style="border: none;">Rs: {{this.Price}}/-</td>
+          <td style="border: none;"><img style="width:50px;height:50px;" src="/product-images/{{this._id}}.jpg" alt=""></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>

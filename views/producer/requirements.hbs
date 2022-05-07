@@ -1,0 +1,34 @@
+<section>
+  <div class="container mt-4">
+    <div class="container-fluid mt-1 ">
+      <div class="row">
+        {{#each products}}
+
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 container-fluid ">
+          <div class="card m-2 p-2 shadow rounded" style="width: 10em;height:20em">
+            <img src="/product-images/{{this._id}}.jpg" class="card-img-top" alt="... "
+              style="height: 130px;border:1px solid black">
+            <div class="card-body pb-4">
+              <h5 class="card-title name">{{this.Name}}</h5>
+              <p class="card-text">{{this.stock}}</p>
+              <p class="card-text">Rs: {{this.Price}}/-</p>
+              {{!-- <a href="/add-to-cart/{{this._id}}" class="btn btn-primary ">
+
+              </a> --}}
+              <button onclick="addToWishList('{{this._id}}')" class="btn btn-primary mr-auto">
+                add wishList
+
+              </button>
+              {{!-- <a href="" class="btn btn-primary">buy</a> --}}
+            </div>
+          </div>
+          </a>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    </dev>
+</section>
+<script>
+
+</script>

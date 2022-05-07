@@ -1,31 +1,54 @@
-<section>
+<section class="container">
     <div class="container">
-        <div class="col-md-8" style="margin-top:4rem">
-            <h2  class="fw-bold" style="margin-left:26rem">Create New Account</h2>
-            <form action="/signup" method="POST">
-                <div class="mb-3 mt-4"style="margin-left: 26rem!important;" >
-                    
-                    <label for="Name" class="form-label">Name</label>
-                    <input type="text" class="form-control" name="Name" id="Name"  style="width:20em" placeholder="Enter your name..">
-                    
-                </div>
-               
+        <div class=" col-md-6 align-items-center shadow rounded ml-6 container" style="">
+            <center>
+                <h2 class="fw-bold pt-3">Create New Account</h2>
+                <form action="/signup" method="POST">
 
-                <div class="mb-3 "style="margin-left: 26rem!important;" >
-                    
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" name="Email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name@gmail.com" style="width:20em">
-                    
-                </div>
-                <div class="mb-3" style="margin-left: 26rem!important;">
-                    <label for="Password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="Password" name="Password" placeholder=" Enter your Password" style="width:20em;">
-                </div>
-                <div class="mb-3 form-check" style="margin-left: 24rem!important;">
-                    <a href="/login" class="nav-link">Already have account ?</a>
-                </div>
-                <button type="submit" class="btn btn-primary" style=" margin-left: 40em!important;width: 6em; margin-top: -6rem;">Submit</button>
-            </form>
+
+
+                    <div class="mb-3 mt-4 ">
+                        <input type="text" class="form-control" name="userName" id="Name" style="width:20em"
+                            placeholder="Enter your name.." required>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <input type="email" class="form-control" name="Email" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" placeholder="name@gmail.com(verification)" style="width:20em" required>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <input type="text" class="form-control" name="Address" placeholder="enter your address"
+                            style="width:20em;height: 4em;" required>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <input type="number" class="form-control" name="phoneNumber" placeholder="enter your number"
+                            style="width:20em;" required>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <input type="number" class="form-control" name="pincode" placeholder="pincode"
+                            style="width:20em;" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="password" class="form-control" id="Password" name="Password"
+                            placeholder=" Enter your Password" style="width:20em;" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-1" style="  width: 6em;">Submit</button>
+                    {{#if loginErr}}
+
+                    <div class="col-12 col-md-12 col-xl-12 d-flex justify-content-center ">
+                        <p class="error text-danger ">{{loginErr}}
+                    </div>
+                    {{/if}}
+                    <div class="mb-3 form-check">
+                        <a href="/login" class="nav-link">Already have account ?</a>
+                    </div>
+                </form>
+            </center>
         </div>
     </div>
 </section>

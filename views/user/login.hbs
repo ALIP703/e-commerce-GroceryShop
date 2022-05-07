@@ -1,40 +1,45 @@
 <section>
-    <div class="container-fluid">
-           <div class="row ">
-        <div class="col-12 col-md-12 col-xl-12"style="margin-top:4rem" >
-            <h2  class="fw-bold d-flex justify-content-center" >Login</h2>
-            <form action="/login" method="POST">
-                  
+    <style>
+    .card-title {
+        font-weight: 300;
+    }
+    .btn {
+        font-size: 14px;
+        margin-top: 20px;
+    }
+    .login-form {
+        width: 400px;
+        margin: 40px;
+    }
+</style>
+<div class="global-container">
+    <div class="card login-form shadow mt-5 pt-3">
+        <div class="card-body">
+            <h3 class="card-title text-center">sign in</h3>
+            <div class="card-text">
+                <form class="" action="/login" method="POST">
+                    <div class="">
+                        <label for="">Email address</label>
+                        <input type="email" name="Email" class="form-control" required>
+                    </div>
+                    <div class="">
+                        <label for="">Password</label>
+                        <a href="/forgotpas" style="float:right;font-size:12px;">Forgot password?</a>
+                        <input type="password" name="Password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    <div class="" >
+                        <a href="/signup" class="">Create a new acount?</a>
+                    </div>
+                </form>
+                {{#if loginErr}}
 
-                      {{#if loginErr}}
-                
-                   <div class="col-12 col-md-12 col-xl-12 d-flex justify-content-center">
-                       <p class="error text-danger ">{{loginErr}}</p>
-                  </div>
-                   {{/if}}
-               
-
-               <div class="col-12 col-md-12 col-xl-12 ">  
-                <div class="mb-3 mt-4 col-12 col-md-12 col-xl-12 d-flex justify-content-center   "  >
-                    
-                    <label for="exampleInputEmail1" class="form-label">Email address&nbsp; </label>
-                    <input type="email" name="Email" class="form-control  " id="exampleInputEmail1" aria-describedby="emailHelp" style="width:20em">
-                    
+                <div class="col-12 col-md-12 col-xl-12 d-flex justify-content-center ">
+                    <p class="error text-danger ">{{loginErr}}</p>
                 </div>
-                <div class="mb-3 col-12 col-md-12 col-xl-12  d-flex justify-content-center" >
-                    <label for="exampleInputPassword1"  class="form-label" >Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input type="password" name="Password" class="form-control  d-flex justify-content-center" id="exampleInputPassword1"style="width:20em;">
-                </div>
-                <div class="mb-3 form-check col-12 col-md-12 col-xl-12  " style="margin-left:40%" >
-                    <a href="/signup" class="nav-link ">Create a new acount?</a>
-                </div>
-                <div class="col-12 col-md-12 col-xl-12 " >
-                <button type="submit" class="btn btn-primary " style=" height: 2em; width: 5em;margin-top: -5rem;margin-left: 59%;padding-bottom: 2em;">Submit</button>
+                {{/if}}
             </div>
-          </div>
-          </div
-            </form>
-        
+        </div>
     </div>
-    </div>
+</div>
 </section>

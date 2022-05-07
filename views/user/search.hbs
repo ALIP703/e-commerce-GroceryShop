@@ -1,0 +1,40 @@
+
+<div class="container-fluid mt-1 ">
+    <div class="row">
+        {{#if outofstck}}
+        <div>
+            <center> 
+                <code>
+                    <h1>products not available right now</h1>
+                    </code>
+
+            </center>
+        </div>
+        {{/if}}
+        {{#each products}}
+
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 container-fluid ">
+            <div class="card m-2 p-2 shadow rounded" style="width: 10em;height:22em">
+                <a href="/login" style="text-decoration: none;">
+                    <img src="/product-images/{{this._id}}.jpg" class="card-img-top" alt="... "
+                        style="height: 130px;border:1px solid black">
+                </a>
+                <div class="card-body pb-4">
+                    <h6 class="card-title name">{{this.Name}}</h6>
+                    <p class=""><code>{{this.Description}}</code></p>
+                    <p class="">Rs: {{this.Price}}/-</p>
+                    {{!-- <a href="/add-to-cart/{{this._id}}" class="btn btn-primary ">
+
+                    </a> --}}
+                    <button onclick="addToCart('{{this._id}}')" class="btn btn-primary mb-1">
+                        add to cart
+
+                    </button>
+                    {{!-- <a href="" class="btn btn-primary">buy</a> --}}
+                </div>
+            </div>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+</div>

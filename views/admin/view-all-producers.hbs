@@ -1,0 +1,32 @@
+<section>
+    <div class="container mt-4">
+        <table class="table" id="producersTable">
+            <thead>
+                <tr>
+                    <th style="border: none;" scope="col">Name</th>
+                    <th style="border: none;" scope="col">Email</th>
+                    <th style="border: none;" scope="col">block</th>
+                    <th style="border: none;" scope="col">Address</th>
+                    <th style="border: none;" scope="col">Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each producers}}
+                <tr>
+                    <td style="border: none;">{{this.name}}</td>
+                    <td style="border: none;">{{this.Email}}</td>
+                    <td style="border: none;">{{this.block}}</td>
+                    <td style="border: none;">{{this.address}}</td>
+                    <td style="border: none;">{{this.phone}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+<script>
+    $(function () {
+        $('#producersTable').DataTable();
+    });
+
+</script>

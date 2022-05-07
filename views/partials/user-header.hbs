@@ -1,55 +1,85 @@
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">M-Cart </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/cart">Cart</a>
-                    </li>
-                    {{#if user}}
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Orders</a>
-                    </li>
-                    
-                    {{/if}}
-                    
-                    </ul>
-
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{#if user}}
-
-                        {{user.Name}}
-
-                        {{else}}
-                        Account
-
-                        {{/if}}
-
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li>
-                            {{#if user}}
-                            <a href="/logout" class="dropdown-item">Logout</a>
-                            {{else}}
-                            <a href="./login" class="dropdown-item">Login</a>
-                            {{/if}}
-                        </li>
-                    </ul>
-            </div>
+<header class="  fixed-header" style="height: 9.5rem;width: 100%;">
+    <div class="row ">
+        <!-- Topbar Start -->
+        <div class="container-fluid bg-primary text-white shadow-lg p-3 mb-5 rounded ">
+            <div class="row  py-2 px-xl-5">
+                <div class="col-lg-6  ">
+                    <div class="d-inline-flex align-items-center ml-3">
+                        {{!-- <a class=" text-white " href="">FAQs</a> --}}
+                        {{!-- <span class="text-muted px-2 ">|</span> --}}
+                        {{!-- <a class="text-white" href="">Help</a> --}}
+                        {{!-- <span class="text-muted px-2">|</span> --}}
+                        {{!-- <a class="text-white" href="">Support</a> --}}
+                    </div>
                 </div>
+                <div class="col-lg-6 text-center text-lg-right">
+
+                </div>
+            </div>
+            <div class="row align-items-center py-3 px-xl-5">
+                <div class="col-lg-3 col-3 d-none d-lg-block">
+                    <a href="" class="text-decoration:none  text-white">
+
+                        <h1 class="m-0  font-weight-semi-bold"><span
+                                class="text-white font-weight-bold border px-3 mr-1 shadow rounded">G</span>Shop
+                        </h1>
+
+
+                    </a>
+                </div>
+                {{#if user}}
+
+                <div class="col-lg-6 col-6 text-left d-none d-lg-block ">
+
+                    <form action="/search" method="post">
+                        <div class="input-group  rounded">
+                            <a href="/" class="btn btn-primary  shadow rounded">home</a>
+                            <a href="">..</a>
+                            <input type="text" name="name" class="form-control rounded" placeholder="Search for products">
+                            <a href="">..</a>
+
+                            <div class="input-group-append">
+                                <span class=" bg-transparent ">
+                                    <button class="btn btn-primary shadow rounded text-white my-2 my-sm-0"
+                                        type="submit"> <i class="fas fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-3 col-6  text-right  float-right ml-auto">
+                    <a class="text-dark  btn btn-primary shadow  d-lg-none" href="/">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    </a>
+                    <a href="/cart" class="btn btn-primary shadow-lg text-dark">
+                        {{!-- <i class='fab fa-bitbucket' style='font-size:24px'> </i> --}}
+                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+
+                        <span class="badge-sm " id="cart-Count">{{cartCount}}
+                        </span>
+                    </a>
+
+                    <a class="text-dark  btn btn-primary shadow" href="">
+                        {{!-- <i class="fab fa-twitter" style='font-size:24px'></i> --}}
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+
+                    </a>
+
+                    <a href="/profile" class="text-dark btn btn-primary shadow">
+                        {{!-- <i class="fas fa-user-alt" style='font-size:24px'> --}}
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            {{/if}}
+                        </i></a>
+                </div>
+            </div>
         </div>
-    </nav>
+
+    </div>
 
 </header>
+
+
+
+
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>

@@ -1,0 +1,36 @@
+<style>
+
+</style>
+<section>
+
+  <div class="container mt-4">
+    <table class="table mt-3" id="userTable">
+      <thead>
+        <tr>
+          <th scope="col" style="border: none;">No</th>
+          <th scope="col" style="border: none;">Name</th>
+          <th scope="col" style="border: none;">Email</th>
+          <th scope="col" style="border: none;">Address</th>
+          <th scope="col" style="border: none;">phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each users}}
+        <tr>
+          <td style="border: none;" scope="row">{{@index}}</th>
+          <td style="border: none;">{{this.Name}}</td>
+          <td style="border: none;">{{this.Email}}</td>
+          <td style="border: none;">{{this.Address}}</td>
+          <td style="border: none;">{{this.phoneNumber}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>
+<script>
+$(function () {
+    $('#userTable').DataTable();
+} );
+
+</script>

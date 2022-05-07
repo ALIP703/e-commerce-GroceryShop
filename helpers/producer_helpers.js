@@ -99,7 +99,7 @@ module.exports = {
             }
         })
     },
-    getwishProducts:(producerID)=>{
+    getwishProducts: (producerID) => {
         return new Promise(async (resolve, reject) => {
             let wishItems = await db.get().collection(collection.WISHLIST_COLLECTION).aggregate([
                 {
@@ -112,7 +112,7 @@ module.exports = {
                     $project: {
                         item: '$products.item',
                         quantity: '$products.quantity'
-                       
+
                     }
                 },
                 {
@@ -138,7 +138,7 @@ module.exports = {
 
         })
     },
-    getTotalAmount:(producerID)=>{
+    getTotalAmount: (producerID) => {
         return new Promise(async (resolve, reject) => {
             let total = await db.get().collection(collection.WISHLIST_COLLECTION).aggregate([
                 {
@@ -207,21 +207,21 @@ module.exports = {
 
                         resolve(true)
                     })
-                
+
             }
         })
     },
     removewishProdect: (wishId, prodId) => {
         console.log(prodId);
         return new Promise(async (resolve, reject) => {
-              await  db.get().collection(collection.WISHLIST_COLLECTION).updateOne({ _id: objectId(wishId) },
-                    {
-                        $pull: { products: { item: objectId(prodId) } }
-                    }).
-                    then((response) => {
-                        console.log(response);
-                        resolve({ removeProduct: true })
-                    })
+            await db.get().collection(collection.WISHLIST_COLLECTION).updateOne({ _id: objectId(wishId) },
+                {
+                    $pull: { products: { item: objectId(prodId) } }
+                }).
+                then((response) => {
+                    console.log(response);
+                    resolve({ removeProduct: true })
+                })
         })
     },
     placeOrder: (details, products, totalPrice) => {
@@ -278,11 +278,11 @@ module.exports = {
                         item: 1, quantity: 1, product: { $arrayElemAt: ['$requirement', 0] }
                     }
                 }
-            ]).toArray()           
+            ]).toArray()
             resolve(orderItems)
         })
     },
-    changeStck:(orderProducts,count)=>{
+    changeStck: (orderProducts, count) => {
         return new Promise(async (resolve, reject) => {
             let i = 0
             while (count - 1 >= i) {
@@ -291,24 +291,24 @@ module.exports = {
                 var total = stock - quantity;
                 let prodId = orderProducts[i].item;
                 console.log(total);
-                if(total>=0){
-                let products = await db.get().collection(collection.REQUIREMENT_collection).updateOne({ _id: objectId(prodId) },
-                    {
-                        $set: {
-                            stock:total
+                if (total >= 0) {
+                    let products = await db.get().collection(collection.REQUIREMENT_collection).updateOne({ _id: objectId(prodId) },
+                        {
+                            $set: {
+                                stock: total
+                            }
                         }
-                    }
-                )
-                i = i + 1
+                    )
+                    i = i + 1
                 }
-                else{                    
+                else {
                     break;
                 }
             }
             resolve(total)
         })
     },
-    changePaymentStatus:(orderId)=>{
+    changePaymentStatus: (orderId) => {
         return new Promise((resolve, reject) => {
             console.log(orderId);
             db.get().collection(collection.CLAIM_COLLECTION).updateOne({ _id: objectId(orderId) },
@@ -322,7 +322,7 @@ module.exports = {
                 })
         })
     },
-    removeClaims:(orderId)=>{
+    removeClaims: (orderId) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.CLAIM_COLLECTION).removeOne({ _id: objectId(orderId) }).then((response) => {
                 resolve(response)
@@ -345,7 +345,7 @@ module.exports = {
             resolve(claims)
         })
     },
-    getClaimProducts:(claimId)=>{
+    getClaimProducts: (claimId) => {
         return new Promise(async (resolve, reject) => {
             let claimItems = await db.get().collection(collection.CLAIM_COLLECTION).aggregate([
                 {
@@ -374,10 +374,10 @@ module.exports = {
                         item: 1, quantity: 1, product: { $arrayElemAt: ['$requirement', 0] }
                     }
                 }
-            ]).toArray()           
+            ]).toArray()
             resolve(claimItems)
         })
-    
+
     },
     removeclaiming: (claimId) => {
         return new Promise((resolve, reject) => {
@@ -386,9 +386,9 @@ module.exports = {
             })
         })
     },
-    getALLCLamCount:(producerId)=>{
+    getALLCLamCount: (producerId) => {
         return new Promise(async (resolve, reject) => {
-            let count =await db.get().collection(collection.CLAIM_COLLECTION).countDocuments({producer:objectId(producerId)})
+            let count = await db.get().collection(collection.CLAIM_COLLECTION).countDocuments({ producer: objectId(producerId) })
             resolve(count)
         })
     },
@@ -399,31 +399,118 @@ module.exports = {
                     $match:
                     {
                         $and: [
-                        {status: "claimed"}, 
-                        {producer:objectId(producerId)}
+                            { status: "claimed" },
+                            { producer: objectId(producerId) }
                         ]
                     }
                 },
                 {
                     $group: {
                         _id: null,
-                        total: { $sum: "$totalPrice" }                }
+                        total: { $sum: "$totalPrice" }
+                    }
                 }
             ]).toArray()
             resolve(total[0].total)
         })
     },
-    removeEmail:(data)=>{
+    removeEmail: (data) => {
         console.log("ivde");
         console.log(data);
-        let detials={
-            email:data.email,
-            password:data.password
+        let detials = {
+            email: data.email,
+            password: data.password
         }
         console.log(detials);
-        return new Promise(async(resolve, reject) => {
-        await db.get().collection(collection.PRODUCER_COLLECTION).removeOne({email:detials.email,password:detials.password})
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.PRODUCER_COLLECTION).removeOne({ email: detials.email, password: detials.password })
             resolve()
+        })
+    },
+    updateProfile: (details, producerId) => {
+        return new Promise(async (resolve, reject) => {
+            console.log(details);
+            db.get().collection(collection.PRODUCER_COLLECTION).updateOne({ _id: objectId(producerId) },
+                {
+                    $set: {
+                        name: details.name,
+                        Email: details.Email,
+                        address: details.address,
+                        block: details.block,
+                        phone: details.phone
+                    }
+                }).then((response) => {
+                    console.log(response);
+                    resolve()
+                })
+
+        })
+    },
+    checkUser: (producerData) => {
+        return new Promise(async (resolve, reject) => {
+            console.log(producerData);
+            let loginStatus = false;
+            let response = {}
+            let producer = await db.get().collection(collection.PRODUCER_COLLECTION).findOne({ Email: producerData.Email })
+            console.log(producer);
+            if (producer) {
+                bcrypt.compare(producerData.Password, producer.Password).then((status) => {//bycript compare old and new password are same
+                    if (status == true) {
+                        console.log('Login successfull')
+                        resolve({ status: true })
+                    }
+                    else {
+                        console.log('loginfailed')
+                        resolve({ status: false })
+                        console.log("false");
+                    }
+                })
+
+            } else {
+                console.log('login faild by Email')
+                resolve({ status: false })
+            }
+        })
+    },
+    checkthruser:(email)=>{
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.PRODUCER_COLLECTION).findOne({Email:email}).then((response)=>{
+                console.log(response);
+                resolve(response)
+            })
+        })
+    },
+    Emailverify:(details)=>{
+        console.log(details);
+        let Email = details.Email
+        let name = details.name
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.PRODUCER_COLLECTION).findOne({ Email: Email, name: name }).then((data) => {
+                console.log(data);
+                console.log("here");
+                resolve(data)
+            })
+        })
+    },
+    changePassword:(userDetails, password)=>{
+        let userId = userDetails._id
+        console.log(userId);
+        return new Promise(async (resolve, reject) => {
+            userDetails.Password = await bcrypt.hash(password, 10)
+            db.get().collection(collection.PRODUCER_COLLECTION).updateOne({ _id: objectId(userId) },
+                {
+                    $set: {
+                        name: userDetails.name,
+                        Email: userDetails.Email,
+                        address: userDetails.address,
+                        block: userDetails.block,
+                        phone: userDetails.phone,
+                        Password: userDetails.Password
+                    }
+                }).then((response) => {
+                    console.log(response);
+                    resolve()
+                })
         })
     }
 }

@@ -1,0 +1,206 @@
+<section>
+    <div class="row">
+
+    <canvas id="myChart6" style="width:100%;max-width:600px" ></canvas>
+        <canvas id="myChart2" style="width:100%;max-width:600px;" class=" text-dark ml-auto "></canvas>
+
+    </div>
+
+
+
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-6 col-xl-4 container-fluid">
+                <div class="card mb-3 mt-5 ml-5  mr-5 widget-content bg-primary shadow-lg ">
+                    <div class="widget-content-wrapper text-light">
+                        <div class="widget-content-left">
+                            <div class="widget-heading ml-3">
+                                <h2 style="text-shadow: 1em;">Total Orders</h2>
+                                <div class="float-right">
+                                    <div class="widget-numbers text-light mr-3">
+                                        <h4>{{TotalOrders}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-subheading ml-3">Last year expenses</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 container-fluid">
+                <div class="card mb-3 mt-5 ml-5  mr-5 widget-content bg-primary shadow-lg">
+                    <div class="widget-content-wrapper text-light">
+                        <div class="widget-content-left">
+                            <div class="widget-heading ml-3">
+                                <h2 style="text-shadow: 1em;">Total Requirements</h2>
+                                <div class="float-right">
+                                    <div class="widget-numbers text-light mr-3">
+                                        <h4>{{requireCount}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-subheading ml-3">shops requirements</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 container-fluid">
+                <div class="card mb-3 mt-5 ml-5  mr-5 widget-content bg-primary  shadow-lg">
+                    <div class="widget-content-wrapper text-light">
+                        <div class="widget-content-left">
+                            <div class="widget-heading ml-3">
+                                <h2 style="text-shadow: 1em;">Total sellers</h2>
+                                <div class="float-right">
+                                    <div class="widget-numbers text-light mr-3">
+                                        <h4>{{prodCount}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-subheading ml-3">People instrested</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 container-fluid">
+                <div class="card mb-3 mt-5 ml-5  mr-5 widget-content bg-primary  shadow-lg">
+                    <div class="widget-content-wrapper text-light">
+                        <div class="widget-content-left">
+                            <div class="widget-heading ml-3">
+                                <h2 style="text-shadow: 1em;">Products Sold</h2>
+                                <div class="float-right">
+                                    <div class="widget-numbers text-light mr-3">
+                                        <h4>Rs:{{profit}}/-</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-subheading ml-3">Revenue streams</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4 container-fluid">
+                <div class="card mb-3 mt-5 ml-5  mr-5 widget-content bg-primary  shadow-lg">
+                    <div class="widget-content-wrapper text-light">
+                        <div class="widget-content-left">
+                            <div class="widget-heading ml-3">
+                                <h2 style="text-shadow: 1em;">registered users</h2>
+                                <div class="float-right">
+                                    <div class="widget-numbers text-light mr-3">
+                                        <h4>{{userCount}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-subheading ml-3">end users</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<div class="row"> 
+            <div id="myChart3" style="width:100%; max-width:500px; height:500px;" class="mt-5">
+        </div>
+</div>
+
+    <script>
+        var xValues = ["placed", "delivered", "transpotting", "shipped"];
+        var yValues = [{{ordercount.placedCount}},{{ordercount.deliverCount}},{{ordercount.transportCount}},{{ordercount.shippedCount}}];
+        var barColors = [
+            "#b91d47",
+            "#00aba9",
+            "#2b5797",
+            "#e8c3b9",
+            "#1e7145"
+        ];
+        new Chart("myChart2", {
+            type: "doughnut",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Orders"
+                }
+            }
+        });
+    </script>
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['center', 'Mhl'],
+                ['bathery', {{ getProfitOfbthry }}],
+        ['kalpetta', {{ getProfitOfklpta }}],
+            ['manathavady', {{ getProfitOfMndy }}]                    
+            ]);
+
+        var options = {
+            title: 'product sold by shops($)',
+            is3D: true
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('myChart3'));
+        chart.draw(data, options);
+        }
+    </script>
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['center', 'Mhl'],
+                ['bathery', {{ getProfitOfbthry }}],
+        ['kalpetta', {{ getProfitOfklpta }}],
+            ['manathavady', {{ getProfitOfMndy }}]                    
+            ]);
+
+        var options = {
+            title: 'product sold by shops($)',
+            is3D: true
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('myChart4'));
+        chart.draw(data, options);
+        }
+    </script>
+<script>
+var xValues = ["Mananthavady", "kalpetta", "bathery"];
+var yValues = [{{getProfitOfMndy}}, {{ getProfitOfklpta }}, {{ getProfitOfbthry }}];
+var barColors = ["red", "green","blue"];
+
+new Chart("myChart6", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "product sold"
+    }
+  }
+});
+</script>
+</section>
